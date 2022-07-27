@@ -1,47 +1,86 @@
 <?php
 
+use App\Http\Controllers\CustomerController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\VaccineController;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\HelloController;
+use App\Http\Controllers\SendEmailController;
 
-Route::get("/list-user", [HelloController::class, 'showListUser']);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/token', function () {
+	return csrf_token(); 
 });
 
-Auth::routes();
+Route::get('/welcome', function () {
+	return view('test');
+});
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('', function() {
+	return view('pages.home');
+});
+
+Auth::routes(['verify' => true]);
+
+
+Route::get('send-email', [SendEmailController::class, 'index']);
+
+// Route::get('', function() {
+// 	return view('pages.home');
+// });
+
+Route::get('price-list', function() {
+	return view('pages.price-list');
+});
+Route::get('news', [PostController::class, "allPost"]
+);
+Route::get('news/{id}', [PostController::class, "show"]);
+Route::get('vaccine', [VaccineController::class, "getVaccine"])->name('vaccine');
+Route::post('/upload', [VaccineController::class, "uploadImg"]);
+Route::get('vaccine-register', [CustomerController::class, "registerView"]);
+Route::post('post-register', [CustomerController::class, "registerPost"]);
+Route::get('get-register', [CustomerController::class, "registerGet"]);
+
+Route::group(['middleware'=>['auth', 'verified']], function(){
+	Route::prefix('admin')->group(function(){
+		Route::get('/', function(){
+			return view('admin.dashboard');
+		});
+		Route::prefix('vaccine')->group(function(){
+			Route::get('', [VaccineController::class, 'allVaccine']);
+			Route::get('create', [VaccineController::class, 'create']);
+			Route::post('store', [VaccineController::class, 'store']);
+			Route::get('/edit/{id}', [VaccineController::class, 'edit']);
+			Route::post('/update/{id}', [VaccineController::class, 'update']);
+			Route::delete('/delete/{id}', [VaccineController::class, 'delete']);
+		});
+		Route::prefix('post')->group(function(){
+			Route::get('', [PostController::class, 'getPost']);
+			Route::get('create', [PostController::class, 'create']);
+			Route::post('store', [PostController::class, 'store']);
+			Route::get('/edit/{id}', [PostController::class, 'edit']);
+			Route::post('/update/{id}', [PostController::class, 'update']);
+			Route::delete('/delete/{id}', [PostController::class, 'delete']);
+		});
+		Route::prefix('order')->group(function(){
+			Route::get('', [OrderController::class, 'getOrder']);
+			Route::get('/change/{id}', [OrderController::class, 'changeState']);
+			Route::post('/change/update/{id}', [OrderController::class, 'updateState']);
+			Route::get('create', [OrderController::class, 'create']);
+			Route::post('store', [OrderController::class, 'store']);
+			Route::get('/edit/{id}', [OrderController::class, 'edit']);
+			Route::post('/update/{id}', [OrderController::class, 'update']);
+		});
+		Route::prefix('user')->group(function(){
+			Route::get('', [UserController::class, 'getUser']);
+			Route::get('/change/{id}', [UserController::class, 'changeRole']);
+			Route::post('/change/update/{id}', [UserController::class, 'updateRole']);
+			Route::get('create', [UserController::class, 'create']);
+			Route::post('store', [UserController::class, 'store']);
+			Route::get('/edit/{id}', [UserController::class, 'edit']);
+			Route::post('/update/{id}', [UserController::class, 'update']);
+			Route::delete('/delete/{id}', [UserController::class, 'delete']);
+		});
+	});
+});
