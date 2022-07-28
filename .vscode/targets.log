@@ -7,9 +7,8 @@ make: *** No rule to make target 'all'.  Stop.
 # License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
- 
 
-# Make data base, printed on Wed Jul 27 13:53:44 2022
+# Make data base, printed on Thu Jul 28 20:44:14 2022
 
 # Variables
 
@@ -40,7 +39,7 @@ MAKE_COMMAND := C:/ProgramData/chocolatey/lib/make/tools/install/bin/make.exe
 # automatic
 @D = $(patsubst %/,%,$(patsubst %\,%,$(dir $@)))
 # environment
-CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_11316_UPKMVTACXIDEVLWF
+CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_1512_NSUJRJWDTBAZDPRG
 # environment
 FPS_BROWSER_USER_PROFILE_STRING = Default
 # environment
@@ -66,8 +65,7 @@ TMP = C:\Users\VuHoang\AppData\Local\Temp
 # environment
 PROCESSOR_ARCHITEW6432 = AMD64
 # makefile
-MAKEFLAGS  
-= pqrR
+MAKEFLAGS = pqrR
 # environment
 ONEDRIVE = C:\Users\VuHoang\OneDrive
 # makefile
@@ -91,7 +89,7 @@ MAKEFILE_LIST := makefile
 # automatic
 @F = $(notdir $@)
 # environment
-VSCODE_PID = 11316
+VSCODE_PID = 1512
 # automatic
 ?D = $(patsubst %/,%,$(patsubst %\,%,$(dir $?)))
 # automatic
@@ -163,7 +161,8 @@ OS = Windows_NT
 # default
 MAKE_VERSION := 4.3
 # environment
-PROGRAMFILES(X86) = C:\Program Files (x86)
+PROGRAMFILES(X86) = C: 
+\Program Files (x86)
 # environment
 USERDOMAIN_ROAMINGPROFILE = hoang
 # environment
@@ -201,8 +200,8 @@ SESSIONNAME = Console
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell nocomment grouped-target extra-prereqs archives jobserver output-sync load
 # environment
-P 
-ROCESSOR_REVISION = 8e0c
+PRO 
+CESSOR_REVISION = 8e0c
 # environment
 PROCESSOR_IDENTIFIER = Intel64 Family 6 Model 142 Stepping 12, GenuineIntel
 # environment
@@ -258,7 +257,8 @@ update:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  recipe to execute (from 'makefile', line 34):
+#  recipe to execute (from 'makefil 
+e', line 34):
 	- docker-compose run php php artisan down
 	- git pull
 	- docker-compose run composer composer install
@@ -306,8 +306,7 @@ clear-cache-remote:
 # Not a target:
 .DEFAULT:
 #  Implicit rule search has not been done.
-#  Modification time never checke 
-d.
+#  Modification time never checked.
 #  File has not been updated.
 
 # Not a target:
@@ -385,6 +384,6 @@ install:
 # strcache performance: lookups = 53 / hit rate = 37%
 # hash-table stats:
 # Load=33/8192=0%, Rehash=0, Collisions=0/53=0%
-# Finished Make data base on Wed Jul 27 13:53:44 2022
+# Finished Make data base on Thu Jul 28 20:44:14 2022
 
  

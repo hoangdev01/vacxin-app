@@ -8,6 +8,8 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\VaccineController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\SendEmailController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Symfony\Component\HttpFoundation\Request;
 
 Route::get('/token', function () {
 	return csrf_token(); 
@@ -22,7 +24,19 @@ Route::get('', function() {
 });
 
 Auth::routes(['verify' => true]);
-
+Route::get('/email/verify', function () {
+    return view('auth.verify');
+})->middleware('auth')->name('verification.notice');
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+ 
+    return redirect('/home');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+ 
+    return back()->with('message', 'Verification link sent!');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
 Route::get('send-email', [SendEmailController::class, 'index']);
 
@@ -42,7 +56,7 @@ Route::get('vaccine-register', [CustomerController::class, "registerView"]);
 Route::post('post-register', [CustomerController::class, "registerPost"]);
 Route::get('get-register', [CustomerController::class, "registerGet"]);
 
-Route::group(['middleware'=>['auth', 'verified']], function(){
+Route::group(['middleware'=>['auth']], function(){
 	Route::prefix('admin')->group(function(){
 		Route::get('/', function(){
 			return view('admin.dashboard');

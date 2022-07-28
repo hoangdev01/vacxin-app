@@ -1,4 +1,3 @@
 src/.env
 .env
-makefile
 src/node_modules
