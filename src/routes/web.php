@@ -56,11 +56,9 @@ Route::get('vaccine-register', [CustomerController::class, "registerView"]);
 Route::post('post-register', [CustomerController::class, "registerPost"]);
 Route::get('get-register', [CustomerController::class, "registerGet"]);
 
-Route::group(['middleware'=>['auth']], function(){
+Route::group(['middleware'=>['auth', 'active']], function(){
 	Route::prefix('admin')->group(function(){
-		Route::get('/', function(){
-			return view('admin.dashboard');
-		});
+		Route::get('/', [VaccineController::class, 'allVaccine']);
 		Route::prefix('vaccine')->group(function(){
 			Route::get('', [VaccineController::class, 'allVaccine']);
 			Route::get('create', [VaccineController::class, 'create']);

@@ -17,7 +17,7 @@
               <th>Address</th>
               <th>Phone</th>
               <th>Email</th>
-              <th>Role</th>
+              <th>Status</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -30,13 +30,13 @@
            <td>{{$user->address}}</td>
            <td>{{$user->phone}}</td>
            <td>{{$user->email}}</td>
-           @if ($user->role == 1)
-           <td>Super Admin</td>
+           @if ($user->active == 1)
+           <td>Active</td>
            @else
-           <td>Employee</td>
+           <td>Unactive</td>
             @endif
            <td>
-            <a class="btn btn-success btn-change" data-toggle="modal" href='#modal-id' data-id="{{$user->id}}">Change Role</a>
+            <a class="btn btn-success btn-change" data-toggle="modal" href='#modal-id' data-id="{{$user->id}}">Change active status</a>
              <a href="{{asset('')}}admin/user/edit/{{$user->id}}" class="btn btn-warning">Edit</a>
              <button class="btn btn-danger btn-delete" data-id={{$user->id}}>Delete</button>
            </td>
@@ -58,14 +58,14 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">Change Role</h4>
+        <h4 class="modal-title">Change Active status</h4>
       </div>
       <div class="modal-body">
        <form method="POST">
         @csrf
           <select name="" id="state" class="form-control" required="required">
-          <option value="0" class="yes">Employee</option>
-          <option value="1" class="no">Super Admin</option>
+          <option value="0" class="yes">Unactive</option>
+          <option value="1" class="no">Active</option>
         </select>
        </form>
       </div>
@@ -95,7 +95,7 @@
       type: 'GET',
       url: link,
       success: function(response){
-        if (response.data.role == 0){
+        if (response.data.active == 0){
           $('.yes').attr('selected', true);
           $('.no').attr('selected', false);
         }
@@ -118,7 +118,7 @@
         change: $('#state').val(),
       },
       success:function(response) {
-        toastr.success('Change role thành công!');
+        toastr.success('Change active status success!');
         setTimeout(function(){
         window.location.href = "/admin/user";
       },100);

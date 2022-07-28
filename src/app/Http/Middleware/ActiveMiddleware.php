@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class RoleMiddleware
+class ActiveMiddleware
 {
     /**
      * Handle an incoming request.
@@ -14,9 +14,9 @@ class RoleMiddleware
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function handle(Request $request, Closure $next, $role)
+    public function handle(Request $request, Closure $next)
     {
-        if(auth()->user() && auth()->user()->role == $role){
+        if(auth()->user() && auth()->user()->active){
             return $next($request);
         }
         abort(404, "Trang không tồn tại");

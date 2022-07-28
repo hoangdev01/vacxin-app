@@ -29,7 +29,7 @@ class UserController extends Controller
 
 	public function updateRole(Request $request, $id) {
 		$state = User::find($id);
-		$state->role = $request->change;
+		$state->active = $request->change;
 		$state->save();
 		return response()->json([
 			'message' =>false

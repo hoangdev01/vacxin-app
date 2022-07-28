@@ -56,10 +56,11 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
+            'fullname' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
+        return true;
     }
 
     /**
@@ -71,28 +72,31 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'name' => $data['name'],
+            'fullname' => $data['fullname'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'address' => $data['address'],
+            'phone' => $data['phone'],
+            'active' => false
         ]);
     }
 
-    // public function register(Request $request)
-    // {
-    //     $this->validator($request->all())->validate();
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
 
-    //     event(new Registered($user = $this->create($request->all())));
+        event(new Registered($user = $this->create($request->all())));
 
-    //     $this->guard()->login($user);
+        // $this->guard()->login($user);
 
-    //     if ($response = $this->registered($request, $user)) {
-    //         return $response;
-    //     }
+        if ($response = $this->registered($request, $user)) {
+            return $response;
+        }
 
-    //     return $request->wantsJson()
-    //                 ? new JsonResponse([], 201)
-    //                 : redirect($this->redirectPath());
-    // }
+        return $request->wantsJson()
+                    ? new JsonResponse([], 201)
+                    : redirect($this->redirectPath());
+    }
 
     public function emailVerify(Request $request){
         
