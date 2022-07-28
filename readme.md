@@ -12,4 +12,4 @@
 - Bước 7: Gõ lệnh "make install"<br>
 - Bước 8: Vào trình duyệt truy cập web với link http:localhost:81<br>
 <h2>Lưu ý:</h2>
-- Trong quá trình install nếu xuất hiện Lỗi "Integrity constraint violation" khi seed database, gõ lệnh: make refresh
+- Trong quá trình install nếu xuất hiện Lỗi "Integrity constraint violation" khi seed database, gõ lệnh "make refresh"
