@@ -3,7 +3,7 @@
 <h2>Người phát triển</h2>
 - Đặng Bá Vũ Hoàng
 <h2>Cách cài đặt</h2>
-- Tạo file .env bên trong thư mục src, link file: https://drive.google.com/file/d/1b6NC0mDbqEoD0Y2MRltFi7ktGQHNKmu9/view?usp=sharing
+- Tạo file .env bên trong thư mục src, link file: https://drive.google.com/file/d/1b6NC0mDbqEoD0Y2MRltFi7ktGQHNKmu9/view?usp=sharing <br>
 - make start<br>
 - make clear:config<br>
 - make install
