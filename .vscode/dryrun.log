@@ -1,5 +1,0 @@
-make.exe --dry-run --always-make --keep-going --print-directory
-make: Entering directory 'd:/thuctap/laravel/vacxin-app'
-docker-compose up -d
-make: Leaving directory 'd:/thuctap/laravel/vacxin-app'
- 
